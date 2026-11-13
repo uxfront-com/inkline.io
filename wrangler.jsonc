@@ -1,0 +1,9 @@
+{
+    "name": "inkline-v2",
+    "compatibility_date": "2026-11-01",
+    // Static site produced by `nuxt build && nuxt export`.
+    "assets": {
+        "directory": "dist",
+        "not_found_handling": "404-page"
+    }
+}

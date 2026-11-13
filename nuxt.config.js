@@ -4,6 +4,12 @@ export default {
     mode: 'universal',
     target: 'static',
 
+    // Write the client-side fallback as 404.html so Cloudflare serves it for
+    // unknown paths.
+    generate: {
+        fallback: true
+    },
+
     server: {
         port: 8080
     },
@@ -210,9 +216,16 @@ export default {
                 [
                     '@nuxt/babel-preset-app', {
                         buildTarget: isServer ? 'server' : 'client',
-                        corejs: { version: 3 }
+                        corejs: { version: 3 },
+                        // Nuxt 2.16+ requires matching `loose` modes for the
+                        // class-properties and private-methods transforms.
+                        loose: true
                     }
                 ]
+            ],
+            plugins: [
+                ['@babel/plugin-transform-private-methods', { loose: true }],
+                ['@babel/plugin-transform-private-property-in-object', { loose: true }]
             ]
         }
     }
